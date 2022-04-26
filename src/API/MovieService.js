@@ -1,6 +1,6 @@
 export default class MovieService {
     
-    static _apiKey = '67f48f65';
+    static _apiKey = process.env.REACT_APP_API_KEY;
     static _url = `http://www.omdbapi.com/?apikey=${this._apiKey}&`;
 
     static async getAll(dataSearch, page = 1) {
