@@ -78,8 +78,7 @@ const MoviesList = () => {
     }, [history]);
 
     return (
-
-        <Row>
+        <Row>            
             {showContent}
             <Col md="12" className='d-flex mt-4 justify-content-center align-items-center'>
                 {!isMoviesLoading && filteredMovies.length === 0 ? message : null}
