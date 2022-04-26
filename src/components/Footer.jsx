@@ -11,7 +11,7 @@ const Footer = () => {
                         Your movies 2022
                     </Col>
                     <Col className='d-flex align-items-center justify-content-end'>
-                        <Button variant='link' href='#' className='d-flex align-items-center'><Github className='me-1'/> GitHub</Button>
+                        <Button variant='link' href='https://github.com/reznichenkosa/movie-db' className='d-flex align-items-center'><Github className='me-1'/> GitHub</Button>
                     </Col>
                 </Row>
             </Container>

@@ -6,32 +6,35 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { DataContext } from '../context';
 
 const Header = () => {
-    const {addSearchParams, dispatch, filter} = useContext(DataContext);
+    const {setSearchParams, dispatch, filter} = useContext(DataContext);
     const searchRef = useRef();
     const navigation = useNavigate();
     const location = useLocation();
 
     const handlerSearchBtn = () => {
+        
+        setSearchParams(searchRef.current.value);
         if (location !== '/') {
             navigation('/');
         }
-        addSearchParams(searchRef.current.value);
     }
 
     const handlerSearchKey = (e) => {
+        
+        if (e.code === 'Enter') {
+            setSearchParams(searchRef.current.value);
+        }
         if (location !== '/') {
             navigation('/');
-        }
-        if (e.code === 'Enter') {
-            addSearchParams(searchRef.current.value);
         }
     }
 
     const handlerSetFilter = (filter) => {
+        
+        dispatch({type: 'SET_FILTER', payload: filter})
         if (location !== '/') {
             navigation('/');
         }
-        dispatch({type: 'SET_FILTER', payload: filter})
     }
 
     return (

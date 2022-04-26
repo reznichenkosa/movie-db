@@ -1,17 +1,24 @@
 import React, { useContext } from 'react';
 import { Card, CardImg, Col } from 'react-bootstrap';
-import { Eye, Heart, HeartFill } from 'react-bootstrap-icons';
-import { NavLink } from 'react-router-dom';
+import { Heart, HeartFill } from 'react-bootstrap-icons';
+import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../context';
 import noImage from '../assets/img/no-image.jpeg';
 
 const MovieItem = ({Poster, Title, Type, Year, imdbID}) => {
-    const {toggleFavoriteMovie, favorite} = useContext(DataContext);
+    const {toggleFavoriteMovie, favorite, dispatch} = useContext(DataContext);
     const favoriteIcon = favorite[imdbID] ? <HeartFill size={24}/> : <Heart size={24}/>;
+    const navigation = useNavigate();
 
     const handlerFavorite = (e) => {
         e.preventDefault();
         toggleFavoriteMovie({imdbID, Poster, Title, Type, Year});
+    }
+
+    const handlerMoreInfo = (e) => {
+        e.preventDefault();
+        dispatch({type: 'ADD_HISTORY', payload: {imdbID, Poster, Title, Type, Year}});
+        navigation(`/${imdbID}`);
     }
 
     return (
@@ -27,7 +34,7 @@ const MovieItem = ({Poster, Title, Type, Year, imdbID}) => {
                         {Year}
                     </div>
                     <div className='mt-3 d-flex justify-content-between align-items-center'>
-                        <NavLink to={`/${imdbID}`}>More info</NavLink>
+                        <Card.Link href='' onClick={handlerMoreInfo}>More info</Card.Link>
                         <Card.Link href='' className='pe-auto' onClick={handlerFavorite}>{favoriteIcon}</Card.Link>
                     </div>
                 </Card.Body>

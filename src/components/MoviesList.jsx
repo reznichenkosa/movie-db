@@ -32,7 +32,7 @@ const MoviesList = () => {
         dispatch({type: 'SET_PAGE', payload: page + 1});
         fetchMoreMovies(search, page);
     }
-    const filteredMovies = filter === 'favorite' ? Object.values(favorite) : filter === 'history' ? Object.values(history) : movies; 
+    const filteredMovies = filter === 'favorite' ? Object.values(favorite).reverse() : filter === 'history' ? Object.values(history).reverse() : movies; 
 
     const showContent = isMoviesLoading ? <Spinner className='mt-4' animation="border" variant="primary" /> : 
                         filteredMovies.map(item => 
@@ -41,9 +41,17 @@ const MoviesList = () => {
                         
     const showMoreButton = isLoadingMoreMovies && !errorMoreMovies ? 
                            <Spinner animation="border" variant="primary" /> : 
-                           !isLoadingMoreMovies && !isMoviesLoading && !errorMoreMovies && page < maxPage && filteredMovies.length > 0 && filter === 'all' ? 
+                           !isLoadingMoreMovies && !isMoviesLoading && !errorMoreMovies && page < maxPage && filteredMovies.length > 0 && filter === 'search' ? 
                            <Button onClick={handlerShowMoreMovies} variant='outline-primary'>More</Button> : null;
 
+    const handlerClearHistory = () => {
+        dispatch({type: 'CLEAR_HISTORY'});
+    }
+
+    const clearHistoryButton = filter === 'history' && filteredMovies.length > 0 ? <Button onClick={handlerClearHistory} variant='outline-primary'>Clear history</Button> : null;
+
+    
+    
     useEffect(() => {
         if (search) {
             fetchMovies(search);
@@ -51,12 +59,22 @@ const MoviesList = () => {
         // eslint-disable-next-line
     }, [search]);
     
+    useEffect(() => {
+        localStorage.setItem('favorite', JSON.stringify(favorite));
+    }, [favorite]);
+
+    useEffect(() => {
+        localStorage.setItem('history', JSON.stringify(history));
+    }, [history]);
+
     return (
+
         <Row>
             {showContent}
 
             <Col md="12" className='d-flex mt-4 justify-content-center align-items-center'>
                 {showMoreButton}
+                {clearHistoryButton}
             </Col>
         </Row>
     );

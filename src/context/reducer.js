@@ -7,7 +7,7 @@ export const reducer = (state, action) => {
         case 'ADD_MORE_MOVIES':
             return {...state, movies: state.movies.concat(action.payload.filter(item => item.Type !== "game"))};
 
-        case 'ADD_SEARCH_PARAMS':
+        case 'SET_SEARCH_PARAMS':
             return {...state, search: action.payload};
 
         case 'SET_PAGE':
@@ -27,6 +27,17 @@ export const reducer = (state, action) => {
                 return {...state, favorite: newFavorite}
             }
             return {...state, favorite: Object.assign({}, state.favorite, {[action.payload.imdbID]: action.payload})}
+        }
+
+        case 'ADD_HISTORY': {
+            if (!state.history[action.payload.imdbID]) {
+                return {...state, history: Object.assign({}, state.history, {[action.payload.imdbID]: action.payload})}
+            }
+            return state;
+        }
+
+        case 'CLEAR_HISTORY': {
+            return {...state, history: {}}
         }
             
         default:

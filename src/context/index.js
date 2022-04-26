@@ -9,21 +9,21 @@ const intialState = {
     search: '',
     page: null,
     maxPage: null,
-    favorite: {},
-    history: [],
+    favorite: JSON.parse(localStorage.getItem('favorite')) || {},
+    history: JSON.parse(localStorage.getItem('history')) || {},
 }
 
 export const DataProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, intialState);
 
-    state.addSearchParams = (searchParam) => {
-        dispatch({type: 'SET_FILTER', payload: 'all'})
+    state.setSearchParams = (searchParam) => {
+        dispatch({type: 'SET_FILTER', payload: 'search'})
         dispatch({type: 'SET_PAGE', payload: 2})
-        dispatch({type: 'ADD_SEARCH_PARAMS', payload: searchParam})
+        dispatch({type: 'SET_SEARCH_PARAMS', payload: searchParam})
     }
 
-    state.toggleFavoriteMovie = (id) => {
-        dispatch({type: 'TOGGLE_FAVORITE_MOVIE', payload: id})
+    state.toggleFavoriteMovie = (item) => {
+        dispatch({type: 'TOGGLE_FAVORITE_MOVIE', payload: item});
     }
 
     state.dispatch = dispatch;

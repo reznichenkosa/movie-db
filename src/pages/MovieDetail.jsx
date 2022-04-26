@@ -12,7 +12,6 @@ const MovieDetail = () => {
     const [fetchMovie, isMovieLoading, movieErrorLoading] = useFetching(async (id) => {
         const data = await MovieService.getById(id);
         setMovie(data);
-        console.log(data);
     })
 
     useEffect(() => {
