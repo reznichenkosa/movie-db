@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Col, Row, Button, Spinner } from 'react-bootstrap';
 import MovieService from '../API/MovieService';
 import { DataContext } from '../context';
 import { useFetching } from '../hooks/useFetching';
+
+import { Col, Row, Button, Spinner } from 'react-bootstrap';
 import MovieItem from './MoviesItem';
 
 const MoviesList = () => {

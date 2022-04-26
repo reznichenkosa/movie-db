@@ -1,8 +1,10 @@
 import React, { useContext, useRef, useState } from 'react';
-import { Button, Col, Container, FormControl, InputGroup, Row } from 'react-bootstrap';
-import { Eye, Film, Heart, Search } from 'react-bootstrap-icons';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { DataContext } from '../context';
+
+import { Button, Col, Container, FormControl, InputGroup, Row } from 'react-bootstrap';
+import { Eye, Film, Heart, Search } from 'react-bootstrap-icons';
+
 import '../styles/menuBurger.css';
 
 const Header = () => {
